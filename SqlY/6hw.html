@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="content-type=text/html charset=utf8"></meta>
+<title>hoo search</title>
+<style>
+td, th {
+border: 1px solid black;
+}
+</style>
+<script>
+function search(value){
+	var xmlhttp;
+	var obj, table, data = "";
+	var i;
+
+	document.getElementbyIDname("content1").innerHTML = "";
+	document.getElementbyIDname("content2").innerHTML = "";
+	document.getElementbyIDname("content3").innerHTML = "";
+	document.getElementbyIDname("content").innerHTML = "";
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+			obj = JSON.parse(xmlhttp.responseText);
+			//sampleJSON="";
+			//obj = JSON.parse(sampleJSON);
+			table = document.createElement("table");
+			table.style.border = "2px solid";
+			table.innerHTML = "<tr align='center'><th>Image</th><th width='200px'>Name</th><th width='400px'>Location</th><th>Rating out of 5</th><th>Reviwers</th></tr>";
+			for (i = 0; i < obj.trips.trip.length; i++){
+				data = "<tr align='center'><td><img width='200px' height='150px' src="+obj.trips.trip[i].picture+"></img></td><td>"+obj.trips.trip[i].name+"</td><td>"+obj.trips.trip[i].loca+"</td><td>"+obj.trips.trip[i].rating+"</td><td><a href="+obj.trips.trip[i].url+">"+obj.trips.trip[i].viewed+"</a></td></tr>";
+				table.innerHTML = table.innerHTML + data;
+
+			}
+			document.getElementById("content").innerHTML = "";
+			document.getElementById("content1").innerHTML = "";
+			document.getElementById("content2").innerHTML = "";
+			document.getElementById("content3").innerHTML = "";
+
+			document.getElementById("content").appendChild(table);
+
+			//document.getElementById("content1").innerHTML = "1."+obj.trip[1].url;
+			//document.getElementById("content2").innerHTML = "[2."+obj.trip[2].viewed+"]";
+			//document.getElementById("content3").innerHTML = "3."+xmlhttp.responseText;
+		} else {
+			document.getElementById("content1").innerHTML = "now status="+xmlhttp.status;
+			document.getElementById("content2").innerHTML = "now readyState="+xmlhttp.readyState;
+			if(xmlhttp.responseText=="{\"trips\":{\"trip\":["){
+				document.getElementById("content").innerHTML = "";
+				document.getElementById("content1").innerHTML = "";
+				document.getElementById("content2").innerHTML = "";
+				document.getElementById("content3").innerHTML = "Search nothing.";
+			}
+			else{
+				document.getElementById("content").innerHTML = "Searching...";
+			}
+		}
+	}
+	xmlhttp.open("POST", "servlet/startAjax", true);
+	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlhttp.send("search="+escape(value));
+
+}
+</script>
+</head>
+<body>
+<center><h1>Trip Search</h1></center>
+
+<center><input id="search" name="search" type="text" size="20"></input>
+<input id="submit" name="submit" type="button" value="search" onclick="search(document.getElementById('search').value)"></input>
+</center></br>
+
+<div id="info" align="center">
+	<div id="content">
+	</div>
+	<div id="content1">
+	</div>
+	<div id="content2">
+	</div>
+	<div id="content3">
+	</div>
+</div>
+</body>
+</html>
+

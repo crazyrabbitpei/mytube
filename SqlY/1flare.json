@@ -1,0 +1,29 @@
+{
+	"name": "sections",
+		"children": [
+		{
+			"name": "Table",
+			"children": [
+			{"name": "Basic", "size": 0.5},
+			{"name": "myHistory", "size": 0.5},
+			{"name": "myList","size":0.5}
+			]
+		},
+	{
+			"name": "Column",
+			"children":[
+			{"name": "id", "size": 0.5},
+			{"name": "content", "size": 0.5},
+			{"name": "author", "size": 0.5},
+			{"name": "title", "size": 0.5},
+			{"name": "category",
+				"children":[
+				{"name":"music","size":0.5},
+				{"name":"animals","size":0.5},
+				{"name":"movie","size":0.5}
+				]
+			}
+			]
+		}
+		]
+}

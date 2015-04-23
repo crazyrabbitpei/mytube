@@ -1,0 +1,35 @@
+.post_box{
+	width: 300px;
+        height: 80px;
+}
+.reply_box{
+	width: 400px;
+        height: 20px;
+
+}
+#right_box{
+	position:absolute;
+	right: 10px;
+	top: 5px;
+}
+#right_box dt{
+	visibility:hidden;
+	//border:solid black;
+	height:15px;
+	text-align:center;
+
+}
+#right_box dl{
+	//border:solid black;
+	height:15px;
+	background:yellow;
+	text-align:center;
+}
+#right_box dl:hover dt{
+	visibility:visible;
+}
+
+#right_box dl:hover dt a:hover{
+	color:white;
+	background:pink;
+}
